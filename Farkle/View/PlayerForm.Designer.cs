@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textName = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
             this.radioFrench = new System.Windows.Forms.RadioButton();
             this.radioEnglish = new System.Windows.Forms.RadioButton();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -48,10 +51,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(94, 153);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(196, 31);
-            this.textBox1.TabIndex = 1;
+            this.textName.Location = new System.Drawing.Point(94, 153);
+            this.textName.Name = "textBox1";
+            this.textName.Size = new System.Drawing.Size(196, 31);
+            this.textName.TabIndex = 1;
             // 
             // btnStart
             // 
@@ -105,7 +108,11 @@
             this.btnSave.Text = "Enregistrer";
             this.btnSave.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // PlayerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -115,10 +122,11 @@
             this.Controls.Add(this.radioEnglish);
             this.Controls.Add(this.radioFrench);
             this.Controls.Add(this.btnStart);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textName);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "PlayerForm";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,12 +135,13 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textName;
         private System.Windows.Forms.Button btnStart;
         protected System.Windows.Forms.RadioButton radioFrench;
         private System.Windows.Forms.RadioButton radioEnglish;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
 

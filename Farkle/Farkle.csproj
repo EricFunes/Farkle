@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="View\IPlayerForm.cs" />
     <Compile Include="View\PlayerForm.cs">
       <SubType>Form</SubType>
     </Compile>

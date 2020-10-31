@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Farkle
+namespace Farkle.View
 {
-    public partial class Form1 : Form
+    public partial class PlayerForm : Form
     {
-        public Form1()
+        public PlayerForm()
         {
             InitializeComponent();
         }

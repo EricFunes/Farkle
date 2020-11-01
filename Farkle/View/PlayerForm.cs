@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Farkle.View
@@ -67,16 +68,17 @@ namespace Farkle.View
         /// <param name="e"></param>
         public void ValidateName(object sender, CancelEventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(textName.Text))
-            {
-                errorProvider1.SetError((TextBox)sender, $"ERROR: Enter your name without any space or numbers.");
-                btnSave.Enabled = false;
-                e.Cancel = true;
-            }
-            else
+            if (!String.IsNullOrWhiteSpace(textName.Text) && Regex.IsMatch(textName.Text, @"^[a-zA-Z]+$"))
             {
                 btnSave.Enabled = true;
                 e.Cancel = false;
+            }
+            else
+            {
+                errorProvider1.SetError((TextBox)sender, 
+                    $"ERROR: Enter your name without any space, numbers or symbols.");
+                btnSave.Enabled = false;
+                e.Cancel = true;
             }
         }
 

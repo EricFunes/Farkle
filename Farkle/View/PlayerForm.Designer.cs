@@ -49,10 +49,10 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nom";
             // 
-            // textBox1
+            // textName
             // 
             this.textName.Location = new System.Drawing.Point(94, 153);
-            this.textName.Name = "textBox1";
+            this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(196, 31);
             this.textName.TabIndex = 1;
             // 
@@ -101,6 +101,7 @@
             // btnSave
             // 
             this.btnSave.AutoSize = true;
+            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(486, 153);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(127, 35);

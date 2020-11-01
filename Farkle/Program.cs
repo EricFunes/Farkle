@@ -1,4 +1,6 @@
-﻿using Farkle.View;
+﻿using Farkle.Presenter;
+using Farkle.View;
+using FarkleLib;
 using System;
 using System.Windows.Forms;
 
@@ -14,7 +16,10 @@ namespace Farkle
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PlayerForm());
+            var p = new Player("Eric");
+            var f = new PlayerForm();
+            var presenter = new PlayerPresenter(p, f);
+            Application.Run(f);
         }
     }
 }

@@ -69,11 +69,13 @@ namespace Farkle.View
         {
             if (String.IsNullOrWhiteSpace(textName.Text))
             {
-                errorProvider1.SetError((TextBox) sender, $"ERROR: Enter your name without any space or numbers.");
+                errorProvider1.SetError((TextBox)sender, $"ERROR: Enter your name without any space or numbers.");
+                btnSave.Enabled = false;
                 e.Cancel = true;
             }
             else
             {
+                btnSave.Enabled = true;
                 e.Cancel = false;
             }
         }

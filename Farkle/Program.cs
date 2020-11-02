@@ -17,14 +17,6 @@ namespace Farkle
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new PlayerForm());
-            //List<Player> playerList = new List<Player>();
-            //playerList.Add(new Player("John"));
-            //var game = new Game(playerList);
-            //var gameForm = new GameForm(f);
-            //GamePresenter presenter = new GamePresenter(game, gameForm);
-            //Application.Run(gameForm);
-          
             var pl = new List<IPlayer>(); 
             var f = new PlayerForm();
             var gameForm = new GameForm(f, pl);

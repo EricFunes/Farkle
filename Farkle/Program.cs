@@ -3,7 +3,6 @@ using Farkle.View;
 using FarkleLib;
 using System;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
 using System.Windows.Forms;
 
 namespace Farkle
@@ -18,9 +17,9 @@ namespace Farkle
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var pl = new List<IPlayer>(); 
             var f = new PlayerForm();
-            var presenter = new PlayerPresenter(pl, f);
+            var gameForm = new GameForm(f);
+            var presenter = new PlayerPresenter(f, gameForm);
             Application.Run(f);
         }
     }

@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Farkle", "Farkle\Farkle.csproj", "{AB7C7972-6B38-45C6-96DB-EDEFE0429ACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarkleLib", "FarkleLib\FarkleLib.csproj", "{5D0AEF3A-0406-440F-ABDC-A45F54219DF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarkleLib", "FarkleLib\FarkleLib.csproj", "{5D0AEF3A-0406-440F-ABDC-A45F54219DF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarklesGame.Tests", "Game.Tests\FarklesGame.Tests.csproj", "{D883EF63-1C8C-4DFB-AF74-F8E62038D0F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5D0AEF3A-0406-440F-ABDC-A45F54219DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D0AEF3A-0406-440F-ABDC-A45F54219DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D0AEF3A-0406-440F-ABDC-A45F54219DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D883EF63-1C8C-4DFB-AF74-F8E62038D0F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D883EF63-1C8C-4DFB-AF74-F8E62038D0F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D883EF63-1C8C-4DFB-AF74-F8E62038D0F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D883EF63-1C8C-4DFB-AF74-F8E62038D0F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

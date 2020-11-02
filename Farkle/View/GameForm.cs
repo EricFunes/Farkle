@@ -20,20 +20,25 @@ namespace Farkle.View
         private IPlayerForm myPlayerForm;
         private List<IPlayer> myPlayerList;
 
-        public GameForm(IPlayerForm playerForm, List<IPlayer> players)
+        public GameForm(IPlayerForm playerForm)
         {
             InitializeComponent();
             Owner = (Form) playerForm;
-            myPlayerList = players;
             myPlayerForm = playerForm;
 
             loadPictureBox();
             
-            List<Player> playerList = new List<Player>();
-            playerList.Add(new Player());
-            game = new Game(playerList);
+            //List<Player> playerList = new List<Player>();
+            //playerList.Add(new Player());
+            game = new Game();
             changeImages();
             diceList = new List<Dice>();
+        }
+
+        public void setPlayers(List<IPlayer> players)
+        {
+            game.PlayerList = players;
+            changeScore();
         }
 
         private void btnRoll_Click(object sender, EventArgs e)
@@ -46,6 +51,7 @@ namespace Farkle.View
                 game.NextPlayer();
                 game.Reset();
                 changeImages();
+                changeScore();
                 btnRoll.Enabled = true;
                 btnSelection.Enabled = false;
             }
@@ -73,12 +79,19 @@ namespace Farkle.View
                     MessageBox.Show("Vous avez Gagné !");
                 }
                 changeImages();
+                changeScore();
             }
+        }
+
+        private void changeScore()
+        {
+            lblScore.Text = $"{game.getPlayerScore()}";
+            lblNom.Text = game.getPlayerName();
         }
 
         private void changeImages()
         {
-            lblScore.Text = $"{game.getPlayerScore()}";
+            
             for(int i = 0; i < 6; i++) {
                 startingList[i].Image = null;
                 boardList[i].Image = null;
@@ -238,7 +251,7 @@ namespace Farkle.View
         }
         public IGameForm CreateNewInstance()
         {
-            return new GameForm(myPlayerForm, myPlayerList);
+            return new GameForm(myPlayerForm);
         }
     }
 }

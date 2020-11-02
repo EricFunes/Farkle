@@ -32,134 +32,146 @@ namespace Farkle.View
             List<Player> playerList = new List<Player>();
             playerList.Add(new Player());
             game = new Game(playerList);
-            for (int i = 0; i < 6; i++)
-                endList[i].Image = Properties.Resources.dice0;
-
+            changeImages();
             diceList = new List<Dice>();
-
-            //this.ImgDice1 += ImgDice1_Click;
         }
 
         private void btnRoll_Click(object sender, EventArgs e)
         {
-            List<Dice> list = game.ThrowDices();
-            for(int i = 0; i < list.Count; i++)
-                boardList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{list[i]}");
+            game.ThrowDices();
+            changeImages();
+            if(!game.VerificationTest(game.BoardList))
+            {
+                MessageBox.Show("Votre tour s'arrete !");
+                game.NextPlayer();
+                game.Reset();
+                changeImages();
+                btnRoll.Enabled = true;
+                btnSelection.Enabled = false;
+            }
+            else
+            {
+                btnRoll.Enabled = false;
+                btnSelection.Enabled = true;
+            }
         }
 
         private void btnSelection_Click(object sender, EventArgs e)
         {
-            foreach(Dice d in diceList)
-            Console.WriteLine(d.ToString());
-            //Console.WriteLine(game.Verification(diceList));
-            if(game.Verification(diceList))
-                for (int i = 0; i < game.EndList.Count; i++)
-                    endList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{game.EndList[i]}");
+            if (game.Verification(diceList, true))
+            {
+                game.Verification(diceList, false);
+                diceList.Clear();
+                btnRoll.Enabled = true;
+                btnSelection.Enabled = false;
+                if (game.EndList.Count == 6)
+                    game.Reset();
+                else if (game.Win())
+                {
+                    btnRoll.Enabled = false;
+                    btnSelection.Enabled = false;
+                    MessageBox.Show("Vous avez Gagné !");
+                }
+                changeImages();
+            }
         }
 
-        /*event EventHandler ImgDice1
+        private void changeImages()
         {
-            add { boardList[0].Click += value; }
-            remove { boardList[0].Click -= value; }
-        }*/
+            lblScore.Text = $"{game.getPlayerScore()}";
+            for(int i = 0; i < 6; i++) {
+                startingList[i].Image = null;
+                boardList[i].Image = null;
+                endList[i].Image = null;
+                boardList[i].BorderStyle = System.Windows.Forms.BorderStyle.None;
+            }
+            for (int i = 0; i < game.StartingList.Count; i++)
+                startingList[i].Image = Properties.Resources.dice0;
+            for (int i = 0; i < game.BoardList.Count; i++)
+                boardList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{game.BoardList[i]}");
+            for (int i = 0; i < game.EndList.Count; i++)
+                endList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{game.EndList[i]}");
+        }
 
         public void ImgDice1_Click(object sender, EventArgs e)
         {
-            if(!diceList.Contains(game.BoardList[0]))
+            if (!diceList.Contains(game.BoardList[0]))
+            {
                 diceList.Add(game.BoardList[0]);
+                boardList[0].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            }
             else
+            {
                 diceList.Remove(game.BoardList[0]);
+                boardList[0].BorderStyle = System.Windows.Forms.BorderStyle.None;
+            }
         }
         public void ImgDice2_Click(object sender, EventArgs e)
         {
             if (!diceList.Contains(game.BoardList[1]))
+            {
                 diceList.Add(game.BoardList[1]);
+                boardList[1].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            }
             else
+            {
                 diceList.Remove(game.BoardList[1]);
+                boardList[1].BorderStyle = System.Windows.Forms.BorderStyle.None;
+            }
         }
         public void ImgDice3_Click(object sender, EventArgs e)
         {
             if (!diceList.Contains(game.BoardList[2]))
+            {
                 diceList.Add(game.BoardList[2]);
+                boardList[2].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            }
             else
+            {
                 diceList.Remove(game.BoardList[2]);
+                boardList[2].BorderStyle = System.Windows.Forms.BorderStyle.None;
+            }
         }
         public void ImgDice4_Click(object sender, EventArgs e)
         {
             if (!diceList.Contains(game.BoardList[3]))
+            {
                 diceList.Add(game.BoardList[3]);
+                boardList[3].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            }
             else
+            {
                 diceList.Remove(game.BoardList[3]);
+                boardList[3].BorderStyle = System.Windows.Forms.BorderStyle.None;
+            }
         }
         public void ImgDice5_Click(object sender, EventArgs e)
         {
             if (!diceList.Contains(game.BoardList[4]))
+            {
                 diceList.Add(game.BoardList[4]);
+                boardList[4].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            }
             else
+            {
                 diceList.Remove(game.BoardList[4]);
+                boardList[4].BorderStyle = System.Windows.Forms.BorderStyle.None;
+            }
         }
 
         public void ImgDice6_Click(object sender, EventArgs e)
         {
             if (!diceList.Contains(game.BoardList[5]))
+            {
                 diceList.Add(game.BoardList[5]);
+                boardList[5].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            }
             else
+            {
                 diceList.Remove(game.BoardList[5]);
-        }
-
-        /*public event EventHandler BtnRollDice
-        {
-            add { btnRoll.Click += value; }
-            remove { btnRoll.Click -= value; }
-        }
-
-        public event EventHandler BtnSelectDice
-        {
-            add { btnSelection.Click += value; }
-            remove { btnSelection.Click -= value; }
-        }
-
-        public event EventHandler ImgDice1
-        {
-            add {
-                List.Add(Int32.Parse($"{boardList[0].Tag.ToString().Last()}"));
-                boardList[0].Click += value; }
-            remove {
-                List.Remove(boardList[0].Tag.ToString().Last());
-                boardList[0].Click -= value; }
-        }
-
-        public void ShowDice(List<int> intStartingList, List<int> intBoardList, List<int> intEndList)
-        {
-            for(int i = 0; i < intStartingList.Count; i++)
-            {
-                startingList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{intStartingList[i]}");
-                startingList[i].Tag = $"dice{intStartingList[i]}";
+                boardList[5].BorderStyle = System.Windows.Forms.BorderStyle.None;
             }
-                
-            for (int i = 0; i < intBoardList.Count; i++)
-            {
-                boardList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{intBoardList[i]}");
-                boardList[i].Tag = $"dice{intBoardList[i]}";
-            }
-            
-            for (int i = 0; i < intEndList.Count; i++)
-            {
-                endList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{intEndList[i]}");
-                endList[i].Tag = $"dice{intEndList[i]}";
-            }
-            
         }
-
-        public void ShowName(string name)
-        {
-            lblNom.Text = name;
-        }
-
-        public void ShowScore(int score)
-        {
-            lblScore.Text = $"{score}";
-        }*/
 
         private void loadPictureBox()
         {
@@ -202,7 +214,6 @@ namespace Farkle.View
             // 
             // endList
             // 
-            location = 406;
             for (int i = 0; i < 6; i++)
             {
                 this.endList[i].Location = new System.Drawing.Point(406, location + (i * 56));

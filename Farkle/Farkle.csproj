@@ -46,6 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="View\GameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\GameForm.Designer.cs">
+      <DependentUpon>GameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\IGameForm.cs" />
     <Compile Include="Presenter\PlayerPresenter.cs" />
     <Compile Include="View\IPlayerForm.cs" />
     <Compile Include="View\PlayerForm.cs">
@@ -67,6 +74,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -87,6 +95,27 @@
       <Project>{5d0aef3a-0406-440f-abdc-a45f54219df0}</Project>
       <Name>FarkleLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dice-six-faces-three.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dice-six-faces-six.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dice-six-faces-one.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dice-six-faces-zero.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dice-six-faces-five.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dice-six-faces-four.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dice-six-faces-two.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

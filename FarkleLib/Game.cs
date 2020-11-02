@@ -16,11 +16,41 @@ namespace Farkle
         public Game(List<Player> playerList)
         {
             this.PlayerList = playerList;
+            playerList.Add(new Player());
+            playerList.Add(new Player());
             playerNb = 0;
             StartingList = new List<Dice>();
             BoardList = new List<Dice>();
             EndList = new List<Dice>();
             occurenceList = new List<int>();
+            Reset();
+        }
+
+        public void NextPlayer()
+        {
+            if (playerNb == 1)
+                playerNb = 0;
+            else
+                playerNb++;
+        }
+
+        public int getPlayerScore()
+        {
+            return PlayerList[playerNb].Score;
+        }
+
+        public bool Win()
+        {
+            if (PlayerList[playerNb].Score >= 10000)
+                return true;
+            return false;
+        }
+
+        public void Reset()
+        {
+            StartingList.Clear();
+            BoardList.Clear();
+            EndList.Clear();
             for (int i = 0; i < 6; i++)
             {
                 occurenceList.Add(0);
@@ -31,46 +61,82 @@ namespace Farkle
         public List<Dice> ThrowDices()
         {
             BoardList = PlayerList[playerNb].ThrowDice(StartingList, BoardList);
-
+            foreach (Dice d in StartingList.ToArray())
+                StartingList.Remove(d);
             return BoardList;
         }
 
-        public bool Verification(List<Dice> list)
+        public bool Verification(List<Dice> list, bool fake)
         {
+            bool result = true;
             fillOccurenceList(list);
-            foreach (int a in occurenceList)
-                Console.WriteLine("o "+ a);
 
             if (check123456())
             {
-                Console.WriteLine("1 TRUE");
-                changeList(list);
-                return true;
+                if (!fake)
+                {
+                    changeList(list);
+                    PlayerList[playerNb].Score += 3000;
+                }
+                return result;
             }
-            else if (checkThreePairs())
+            else if (checkThreePairs(list))
             {
-                Console.WriteLine("2 TRUE");
-                changeList(list);
-                return true;
+                if (!fake)
+                {
+                    PlayerList[playerNb].Score += 1500;
+                    changeList(list);
+                }
+                return result;
             }
-            
-            bool searching = true;
-            while (searching == true)
+            int searching = 0;
+            while (searching >= 0)
             {
                 searching = checkTrio();
+                if(searching != -1 && !fake)
+                    PlayerList[playerNb].Score += (searching + 1) * 100;
             }
 
-            searching = true;
-            while (searching == true)
+            searching = 0;
+            while (searching >= 0)
             {
                 searching = check1Or5();
+                if (searching == 1 && !fake)
+                    PlayerList[playerNb].Score += 100;
+                else if (searching == 5 && !fake)
+                    PlayerList[playerNb].Score += 50;
             }
+
 
             foreach (int i in occurenceList)
                 if (i != 0)
-                    return false;
-            Console.WriteLine("3 TRUE");
-            return true;
+                    result = false;
+
+            if (!fake)
+                changeList(list);
+            else
+                for (int i = 0; i < 6; i++)
+                    occurenceList[i] = 0;
+            return result;
+        }
+
+        public bool VerificationTest(List<Dice> list)
+        {
+            bool result = false;
+            fillOccurenceList(list);
+
+            if (check123456())
+                result = true;
+            else if (checkThreePairs(list))
+                result = true;
+            else if (checkTrio() != -1)
+                result = true;
+            else if (check1Or5() != -1)
+                result = true;
+
+            for (int i = 0; i < 6; i++)
+                occurenceList[i] = 0;
+            return result;
         }
 
         private void changeList(List<Dice> list)
@@ -80,6 +146,11 @@ namespace Farkle
                 EndList.Add(list[i]);
                 BoardList.Remove(list[i]);
             }
+            foreach (Dice d in BoardList.ToArray())
+            {
+                StartingList.Add(d);
+                BoardList.Remove(d);
+            }
         }
 
         private bool check123456()
@@ -87,53 +158,52 @@ namespace Farkle
             foreach (int diceNb in occurenceList)
                 if (diceNb != 1)
                     return false;
-            PlayerList[playerNb].Score += 3000;
-
+            for (int i = 0; i < 6; i++)
+                occurenceList[i] = 0;
             return true;
         }
 
-        private bool checkThreePairs()
+        private bool checkThreePairs(List<Dice> list)
         {
             foreach (int diceNb in occurenceList)
-                if (BoardList.Count != 6 || diceNb % 2 != 0)
+                if (list.Count != 6 || diceNb % 2 != 0)
                     return false;
-            PlayerList[playerNb].Score += 1500;
+            for (int i = 0; i < 6; i++)
+                occurenceList[i] = 0;
             return true;
         }
 
-        private bool checkTrio()
+        private int checkTrio()
         {
             for (int i = 0; i < occurenceList.Count; i++)
                 if (occurenceList[i] == 3)
                 {
                     occurenceList[i] -= 3;
-                    PlayerList[playerNb].Score += (i + 1) * 100;
-                    return true;
+                    return i;
                 }
-            return false;
+            return -1;
         }
 
-        private bool check1Or5()
+        private int check1Or5()
         {
             if (occurenceList[0] > 0)
             {
                 occurenceList[0]--;
-                PlayerList[playerNb].Score += 100;
-                return true;
+                return 1;
             }
             else if (occurenceList[4] > 0)
             {
                 occurenceList[4]--;
-                PlayerList[playerNb].Score += 50;
-                return true;
+                return 5;
             }
-            return false;
+            return -1;
         }
 
         private void fillOccurenceList(List<Dice> list)
         {
             foreach (Dice dice in list)
-                occurenceList[dice.Value - 1] = occurenceList[dice.Value - 1]++;
+                occurenceList[dice.Value - 1]++;
+
         }
     }
 }

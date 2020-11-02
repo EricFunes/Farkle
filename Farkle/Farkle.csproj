@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Presenter\GamePresenter.cs" />
     <Compile Include="View\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,25 +100,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dice-six-faces-three.png" />
+    <None Include="Resources\dice2.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dice-six-faces-six.png" />
+    <None Include="Resources\dice3.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dice-six-faces-one.png" />
+    <None Include="Resources\dice6.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dice-six-faces-zero.png" />
+    <None Include="Resources\dice1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dice-six-faces-five.png" />
+    <None Include="Resources\dice0.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dice-six-faces-four.png" />
+    <None Include="Resources\dice5.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\dice-six-faces-two.png" />
+    <None Include="Resources\dice4.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -25,10 +25,10 @@ namespace Farkle
             //GamePresenter presenter = new GamePresenter(game, gameForm);
             Application.Run(gameForm);
           
-            var pl = new List<IPlayer>(); 
+            /*var pl = new List<IPlayer>(); 
             var f = new PlayerForm();
             var presenter = new PlayerPresenter(pl, f);
-            Application.Run(f);
+            Application.Run(f);*/
         }
     }
 }

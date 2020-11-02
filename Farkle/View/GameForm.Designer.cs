@@ -37,7 +37,7 @@
             // 
             // btnRoll
             // 
-            this.btnRoll.Location = new System.Drawing.Point(197, 302);
+            this.btnRoll.Location = new System.Drawing.Point(165, 302);
             this.btnRoll.Name = "btnRoll";
             this.btnRoll.Size = new System.Drawing.Size(75, 23);
             this.btnRoll.TabIndex = 12;
@@ -47,7 +47,7 @@
             // 
             // btnSelection
             // 
-            this.btnSelection.Location = new System.Drawing.Point(305, 301);
+            this.btnSelection.Location = new System.Drawing.Point(273, 301);
             this.btnSelection.Name = "btnSelection";
             this.btnSelection.Size = new System.Drawing.Size(75, 23);
             this.btnSelection.TabIndex = 19;
@@ -58,35 +58,41 @@
             // lblNom
             // 
             this.lblNom.AutoSize = true;
-            this.lblNom.Location = new System.Drawing.Point(575, 24);
+            this.lblNom.Location = new System.Drawing.Point(612, 21);
             this.lblNom.Name = "lblNom";
             this.lblNom.Size = new System.Drawing.Size(45, 13);
             this.lblNom.TabIndex = 20;
             this.lblNom.Text = "Thomas";
+            this.lblNom.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.Location = new System.Drawing.Point(585, 49);
+            this.lblScore.Location = new System.Drawing.Point(622, 48);
             this.lblScore.Name = "lblScore";
             this.lblScore.Size = new System.Drawing.Size(35, 13);
             this.lblScore.TabIndex = 21;
             this.lblScore.Text = "Score";
+            this.lblScore.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblRegles
             // 
             this.lblRegles.AutoSize = true;
-            this.lblRegles.Location = new System.Drawing.Point(524, 218);
+            this.lblRegles.Location = new System.Drawing.Point(533, 191);
             this.lblRegles.Name = "lblRegles";
-            this.lblRegles.Size = new System.Drawing.Size(72, 13);
+            this.lblRegles.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblRegles.Size = new System.Drawing.Size(124, 156);
             this.lblRegles.TabIndex = 22;
-            this.lblRegles.Text = "Regles du jeu";
+            this.lblRegles.Text = "Combinaisons possibles :\n\n5 = 50 pt\n1 = 100 pt\n222 = 200 pt\n333 = 300 pt\n444 = 40" +
+    "0 pt\n555 = 500 pt\n666 = 600 pt\n111 = 1000 pt\nTrois paires = 1500 pt\n123456 = 300" +
+    "0 pt";
+            this.lblRegles.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(765, 356);
+            this.ClientSize = new System.Drawing.Size(673, 356);
             this.Controls.Add(this.lblRegles);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.lblNom);

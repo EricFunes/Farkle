@@ -31,22 +31,7 @@ namespace Farkle.Presenter
             playerList = players;
             myGameForm = gameForm;
 
-            myPlayerForm.BtnPlay += MyPlayerForm_BtnPlay;
-            myPlayerForm.BtnAddPlayer += MyPlayerForm_BtnAddPlayer;
-
-            //myPlayerForm.Load += MyPlayerForm_Load;
-            myPlayerForm.FormClosing += MyPlayerForm_FormClosing;
-
-            myPlayerForm.NameValidatingPlayer1 += ValidateNamePlayer1;
-            myPlayerForm.NameValidatingPlayer2 += ValidateNamePlayer2;
-
-            myPlayerForm.NameValidatedPlayer1 += ClearMessage;
-            myPlayerForm.NameValidatedPlayer2 += ClearMessage;
-
-            myPlayerForm.ComboLang += comboBox1_SelectedIndexChanged;
-
-            //myPlayerForm.SetP1NameDataBinding(new Binding("Text", player1, "Name"));
-            //myPlayerForm.SetP2NameDataBinding(new Binding("Text", player2, "Name"));
+            myPlayerForm.Load += MyPlayerForm_Load;
         }
 
         /// <summary>
@@ -60,7 +45,7 @@ namespace Farkle.Presenter
         }
 
         /// <summary>
-        /// 
+        /// Verifies if input name is not empty or doesn't contain numbers.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -69,6 +54,11 @@ namespace Farkle.Presenter
             myPlayerForm.ValidateNamePlayer1(sender, e);
         }
 
+        /// <summary>
+        /// Verifies if input name is not empty or doesn't contain numbers.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ValidateNamePlayer2(object sender, CancelEventArgs e)
         {
             myPlayerForm.ValidateNamePlayer2(sender, e);

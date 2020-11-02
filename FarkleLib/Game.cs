@@ -10,14 +10,11 @@ namespace Farkle
         public List<Dice> BoardList { get; set; }
         public List<Dice> EndList { get; set; }
         private List<int> occurenceList;
-        public List<Player> PlayerList { get; set; }
+        public List<IPlayer> PlayerList { get; set; }
         private int playerNb;
 
-        public Game(List<Player> playerList)
+        public Game()
         {
-            this.PlayerList = playerList;
-            playerList.Add(new Player());
-            playerList.Add(new Player());
             playerNb = 0;
             StartingList = new List<Dice>();
             BoardList = new List<Dice>();
@@ -37,6 +34,11 @@ namespace Farkle
         public int getPlayerScore()
         {
             return PlayerList[playerNb].Score;
+        }
+
+        public string getPlayerName()
+        {
+            return PlayerList[playerNb].Name;
         }
 
         public bool Win()

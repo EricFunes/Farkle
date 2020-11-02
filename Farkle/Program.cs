@@ -17,10 +17,9 @@ namespace Farkle
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var pl = new List<IPlayer>(); 
             var f = new PlayerForm();
-            var gameForm = new GameForm(f, pl);
-            var presenter = new PlayerPresenter(pl, f, gameForm);
+            var gameForm = new GameForm(f);
+            var presenter = new PlayerPresenter(f, gameForm);
             Application.Run(f);
         }
     }

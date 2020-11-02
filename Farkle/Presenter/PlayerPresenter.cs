@@ -23,12 +23,12 @@ namespace Farkle.Presenter
         /// </summary>
         /// <param name="players"></param>
         /// <param name="playerForm"></param>
-        public PlayerPresenter(List<IPlayer> players, IPlayerForm playerForm, IGameForm gameForm)
+        public PlayerPresenter(IPlayerForm playerForm, IGameForm gameForm)
         {
             player1 = new Player();
             player2 = new Player();
             myPlayerForm = playerForm;
-            playerList = players;
+            playerList = new List<IPlayer>();
             myGameForm = gameForm;
 
             myPlayerForm.Load += MyPlayerForm_Load;
@@ -112,6 +112,7 @@ namespace Farkle.Presenter
         {
             myPlayerForm.AddPlayer(playerList, player1);
             myPlayerForm.AddPlayer(playerList, player2);
+            myGameForm.setPlayers(playerList);
             myPlayerForm.ShowPlayButton();
         }
 

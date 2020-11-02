@@ -1,8 +1,10 @@
 ﻿using FarkleLib;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Farkle.View
@@ -18,7 +20,7 @@ namespace Farkle.View
         public event EventHandler BtnPlay
         {
             add { btnStart.Click += value; }
-            remove { btnStart.Click += value; }
+            remove { btnStart.Click -= value; }
         }
 
         public event EventHandler BtnAddPlayer
@@ -42,13 +44,19 @@ namespace Farkle.View
         public event EventHandler NameValidatedPlayer1
         {
             add { textNameP1.Validated += value; }
-            remove { textNameP1.Validated += value; }
+            remove { textNameP1.Validated -= value; }
         }
 
         public event EventHandler NameValidatedPlayer2
         {
             add { textNameP2.Validated += value; }
-            remove { textNameP2.Validated += value; }
+            remove { textNameP2.Validated -= value; }
+        }
+
+        public event EventHandler ComboLang
+        {
+            add { comboBox1.SelectedIndexChanged += value; }
+            remove { comboBox1.SelectedIndexChanged -= value; }
         }
 
         /// <summary>
@@ -59,7 +67,7 @@ namespace Farkle.View
         public void ValidateNamePlayer1(object sender, CancelEventArgs e)
         {
             //Regex.IsMatch(textNameP1.Text, @"^[a-zA-Z]+$")
-            if (String.IsNullOrWhiteSpace(textNameP1.Text)/* || String.IsNullOrWhiteSpace(textNameP2.Text)*/)
+            if (String.IsNullOrWhiteSpace(textNameP1.Text))
             {
                 errorProvider1.SetError((TextBox)sender, 
                     $"ERROR: Enter your name without any space, numbers or symbols.");
@@ -138,6 +146,37 @@ namespace Farkle.View
         public void AddPlayer(List<IPlayer> list, IPlayer p)
         {
             list.Add(p);
+        }
+
+        /// <summary>
+        /// Adds languages to ComboBox.
+        /// </summary>
+        /// <param name="lang"></param>
+        public void AddLangCombo(string lang)
+        {
+            comboBox1.Items.Add(lang);
+        }
+
+        /// <summary>
+        /// Changes the language in the UI.
+        /// </summary>
+        public void ChangeLang()
+        {
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0:
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr");
+                    break;
+
+                case 1:
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
+                    break;
+
+                default:
+                    break;
+            }
+            this.Controls.Clear();
+            InitializeComponent();
         }
     }
 }

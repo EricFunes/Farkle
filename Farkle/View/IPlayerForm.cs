@@ -8,7 +8,7 @@ namespace Farkle.View
 {
     public interface IPlayerForm
     {
-        event EventHandler BtnPlay, BtnAddPlayer, Load;
+        event EventHandler BtnPlay, BtnAddPlayer, Load, ComboLang;
 
         event FormClosingEventHandler FormClosing;
 
@@ -29,5 +29,9 @@ namespace Farkle.View
         void ShowPlayButton();
         
         void AddPlayer(List<IPlayer> list, IPlayer p);
+
+        void AddLangCombo(string lang);
+        
+        void ChangeLang();
     }
 }

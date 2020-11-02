@@ -9,7 +9,7 @@ namespace FarkleLib
         string Name { get; set; }
         int Score { get; set; }
 
-        void ThrowDice(List<Dice> remainingDices, List<Dice> diceTrack);
+        List<Dice> ThrowDice(List<Dice> remainingDices, List<Dice> diceTrack);
 
         string ToString();
     }

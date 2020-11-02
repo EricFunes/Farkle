@@ -23,9 +23,16 @@ namespace FarkleLib
         /// The player throws the remaining dices with to the dice track.
         /// </summary>
         /// <param name="diceList"></param>
-        public void ThrowDice(List<Dice> remainingDices, List<Dice> diceTrack)
+        public List<Dice> ThrowDice(List<Dice> startingList, List<Dice> boardList)
         {
-            throw new NotImplementedException();
+            Random r = new Random();
+            foreach(Dice dice in startingList.ToArray())
+            {
+                dice.Value = r.Next(1, 7);
+                boardList.Add(dice);
+                startingList.Remove(dice);
+            }
+            return boardList;
         }
 
         /// <summary>

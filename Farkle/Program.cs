@@ -21,13 +21,14 @@ namespace Farkle
             //List<Player> playerList = new List<Player>();
             //playerList.Add(new Player("John"));
             //var game = new Game(playerList);
-            var gameForm = new GameForm();
+            //var gameForm = new GameForm(f);
             //GamePresenter presenter = new GamePresenter(game, gameForm);
-            Application.Run(gameForm);
+            //Application.Run(gameForm);
           
             var pl = new List<IPlayer>(); 
             var f = new PlayerForm();
-            var presenter = new PlayerPresenter(pl, f);
+            var gameForm = new GameForm(f, pl);
+            var presenter = new PlayerPresenter(pl, f, gameForm);
             Application.Run(f);
         }
     }

@@ -9,11 +9,15 @@ namespace Farkle.View
 {
     public interface IGameForm
     {
-        List<int> List { get; set; }
-        event EventHandler BtnRollDice, BtnSelectDice, Load, ImgDice1;
-        event FormClosingEventHandler FormClosing;
-        void ShowDice(List<int> intStartingList, List<int> intBoardList, List<int> intEndList);
-        void ShowName(string name);
-        void ShowScore(int score);
+        //List<int> List { get; set; }
+        //event EventHandler BtnRollDice, BtnSelectDice, Load, ImgDice1;
+        //event FormClosingEventHandler FormClosing;
+        //void ShowDice(List<int> intStartingList, List<int> intBoardList, List<int> intEndList);
+        //void ShowName(string name);
+        //void ShowScore(int score);
+        bool IsDisposed { get; }
+
+        IGameForm CreateNewInstance();
+        void Show();
     }
 }

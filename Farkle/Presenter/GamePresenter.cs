@@ -21,15 +21,15 @@ namespace Farkle.Presenter
             this.game = game;
             this.gameForm = gameForm;
 
-            gameForm.FormClosing += Save;
-            gameForm.Load += Read;
+            //gameForm.FormClosing += Save;
+            //gameForm.Load += Read;
 
-            gameForm.BtnRollDice += btnThrowDice_Click;
-            gameForm.BtnRollDice += btnSelectDice_Click;
+            //gameForm.BtnRollDice += btnThrowDice_Click;
+            //gameForm.BtnRollDice += btnSelectDice_Click;
 
-            gameForm.ImgDice1 += imgDice1_Click;
+            //gameForm.ImgDice1 += imgDice1_Click;
 
-            gameForm.ShowName(game.PlayerList[0].Name);
+            //gameForm.ShowName(game.PlayerList[0].Name);
             /*List<Binding> bindStartingList = new List<Binding>();
             List<Binding> bindBoardList = new List<Binding>();
             List<Binding> bindEndList = new List<Binding>();
@@ -64,7 +64,7 @@ namespace Farkle.Presenter
             foreach (Dice d in game.EndList)
                 el.Add(d.Value);
 
-            gameForm.ShowDice(sl, bl, el);
+            //gameForm.ShowDice(sl, bl, el);
         }
 
         private void btnSelectDice_Click(object sender, EventArgs e)
@@ -75,7 +75,7 @@ namespace Farkle.Presenter
         private void imgDice1_Click(object sender, EventArgs e)
         {
             Dice d = new Dice();
-            d.Value = gameForm.List[0];
+            //d.Value = gameForm.List[0];
             list.Add(d);
         }
     }

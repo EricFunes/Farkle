@@ -3,7 +3,9 @@ using FarkleLib;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Farkle.Presenter
@@ -14,33 +16,37 @@ namespace Farkle.Presenter
         private IPlayer player2;
         private List<IPlayer> playerList;
         private readonly IPlayerForm myPlayerForm;
+        private IGameForm myGameForm;
 
         /// <summary>
         /// Creates a player and the player form.
         /// </summary>
         /// <param name="players"></param>
-        /// <param name="form"></param>
-        public PlayerPresenter(List<IPlayer> players, IPlayerForm form)
+        /// <param name="playerForm"></param>
+        public PlayerPresenter(List<IPlayer> players, IPlayerForm playerForm, IGameForm gameForm)
         {
             player1 = new Player();
             player2 = new Player();
-            myPlayerForm = form;
+            myPlayerForm = playerForm;
             playerList = players;
+            myGameForm = gameForm;
 
             myPlayerForm.BtnPlay += MyPlayerForm_BtnPlay;
             myPlayerForm.BtnAddPlayer += MyPlayerForm_BtnAddPlayer;
-            
-            myPlayerForm.Load += MyPlayerForm_Load;
+
+            //myPlayerForm.Load += MyPlayerForm_Load;
             myPlayerForm.FormClosing += MyPlayerForm_FormClosing;
-            
+
             myPlayerForm.NameValidatingPlayer1 += ValidateNamePlayer1;
             myPlayerForm.NameValidatingPlayer2 += ValidateNamePlayer2;
 
             myPlayerForm.NameValidatedPlayer1 += ClearMessage;
             myPlayerForm.NameValidatedPlayer2 += ClearMessage;
 
-            myPlayerForm.SetP1NameDataBinding(new Binding("Text", player1, "Name"));
-            myPlayerForm.SetP2NameDataBinding(new Binding("Text", player2, "Name"));
+            myPlayerForm.ComboLang += comboBox1_SelectedIndexChanged;
+
+            //myPlayerForm.SetP1NameDataBinding(new Binding("Text", player1, "Name"));
+            //myPlayerForm.SetP2NameDataBinding(new Binding("Text", player2, "Name"));
         }
 
         /// <summary>
@@ -85,7 +91,26 @@ namespace Farkle.Presenter
         /// <param name="e"></param>
         private void MyPlayerForm_Load(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+            myPlayerForm.AddLangCombo("Français");
+            myPlayerForm.AddLangCombo("English");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr");
+
+            myPlayerForm.BtnPlay += MyPlayerForm_BtnPlay;
+            myPlayerForm.BtnAddPlayer += MyPlayerForm_BtnAddPlayer;
+
+            //myPlayerForm.Load += MyPlayerForm_Load;
+            myPlayerForm.FormClosing += MyPlayerForm_FormClosing;
+
+            myPlayerForm.NameValidatingPlayer1 += ValidateNamePlayer1;
+            myPlayerForm.NameValidatingPlayer2 += ValidateNamePlayer2;
+
+            myPlayerForm.NameValidatedPlayer1 += ClearMessage;
+            myPlayerForm.NameValidatedPlayer2 += ClearMessage;
+
+            myPlayerForm.ComboLang += comboBox1_SelectedIndexChanged;
+
+            myPlayerForm.SetP1NameDataBinding(new Binding("Text", player1, "Name"));
+            myPlayerForm.SetP2NameDataBinding(new Binding("Text", player2, "Name"));
         }
 
         /// <summary>
@@ -107,14 +132,17 @@ namespace Farkle.Presenter
         /// <param name="e"></param>
         private void MyPlayerForm_BtnPlay(object sender, EventArgs e)
         {
-            string msg = "";
-
-            foreach (IPlayer player in playerList)
+            if (myGameForm.IsDisposed)
             {
-                msg += player.ToString() + ", ";
+                myGameForm = myGameForm.CreateNewInstance();
             }
-            MessageBox.Show(msg);
+            myGameForm.Show();
+        }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            myPlayerForm.ChangeLang();
+            MyPlayerForm_Load(sender, e);
         }
     }
 }

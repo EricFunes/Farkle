@@ -14,18 +14,20 @@ namespace Farkle.Presenter
         private IPlayer player2;
         private List<IPlayer> playerList;
         private readonly IPlayerForm myPlayerForm;
+        private IGameForm myGameForm;
 
         /// <summary>
         /// Creates a player and the player form.
         /// </summary>
         /// <param name="players"></param>
-        /// <param name="form"></param>
-        public PlayerPresenter(List<IPlayer> players, IPlayerForm form)
+        /// <param name="playerForm"></param>
+        public PlayerPresenter(List<IPlayer> players, IPlayerForm playerForm, IGameForm gameForm)
         {
             player1 = new Player();
             player2 = new Player();
-            myPlayerForm = form;
+            myPlayerForm = playerForm;
             playerList = players;
+            myGameForm = gameForm;
 
             myPlayerForm.BtnPlay += MyPlayerForm_BtnPlay;
             myPlayerForm.BtnAddPlayer += MyPlayerForm_BtnAddPlayer;
@@ -107,14 +109,11 @@ namespace Farkle.Presenter
         /// <param name="e"></param>
         private void MyPlayerForm_BtnPlay(object sender, EventArgs e)
         {
-            string msg = "";
-
-            foreach (IPlayer player in playerList)
+            if (myGameForm.IsDisposed)
             {
-                msg += player.ToString() + ", ";
+                myGameForm = myGameForm.CreateNewInstance();
             }
-            MessageBox.Show(msg);
-
+            myGameForm.Show();
         }
     }
 }

@@ -12,19 +12,25 @@ using System.Windows.Forms;
 
 namespace Farkle.View
 {
-    public partial class GameForm : Form//, IGameForm
+    public partial class GameForm : Form, IGameForm
     {
         public List<Dice> diceList;
         private List<System.Windows.Forms.PictureBox> startingList, boardList, endList;
         private Game game;
+        private IPlayerForm myPlayerForm;
+        private List<IPlayer> myPlayerList;
 
-        public GameForm()
+        public GameForm(IPlayerForm playerForm, List<IPlayer> players)
         {
             InitializeComponent();
+            Owner = (Form) playerForm;
+            myPlayerList = players;
+            myPlayerForm = playerForm;
+
             loadPictureBox();
             
             List<Player> playerList = new List<Player>();
-            playerList.Add(new Player("John"));
+            playerList.Add(new Player());
             game = new Game(playerList);
             for (int i = 0; i < 6; i++)
                 endList[i].Image = Properties.Resources.dice0;
@@ -218,6 +224,10 @@ namespace Farkle.View
                 this.Controls.Add(this.boardList[i]);
                 this.Controls.Add(this.endList[i]);
             }
+        }
+        public IGameForm CreateNewInstance()
+        {
+            return new GameForm(myPlayerForm, myPlayerList);
         }
     }
 }

@@ -1,18 +1,21 @@
 ﻿using FarkleLib;
+using System;
 using System.Collections.Generic;
 
 namespace Farkle
 {
     public class Game : IGame
     {
-        private const int diceNb = 6;
-        public List<Dice> StartingList, BoardList, EndList;
+        public List<Dice> StartingList { get; set; }
+        public List<Dice> BoardList { get; set; }
+        public List<Dice> EndList { get; set; }
         private List<int> occurenceList;
-        private List<Player> playerList;
+        public List<Player> PlayerList { get; set; }
         private int playerNb;
 
-        public Game()
+        public Game(List<Player> playerList)
         {
+            this.PlayerList = playerList;
             playerNb = 0;
             StartingList = new List<Dice>();
             BoardList = new List<Dice>();
@@ -27,7 +30,7 @@ namespace Farkle
 
         public List<Dice> ThrowDices()
         {
-            BoardList = playerList[playerNb].ThrowDice(StartingList, BoardList);
+            BoardList = PlayerList[playerNb].ThrowDice(StartingList, BoardList);
 
             return BoardList;
         }
@@ -35,12 +38,22 @@ namespace Farkle
         public bool Verification(List<Dice> list)
         {
             fillOccurenceList(list);
+            foreach (int a in occurenceList)
+                Console.WriteLine("o "+ a);
 
             if (check123456())
+            {
+                Console.WriteLine("1 TRUE");
+                changeList(list);
                 return true;
+            }
             else if (checkThreePairs())
+            {
+                Console.WriteLine("2 TRUE");
+                changeList(list);
                 return true;
-
+            }
+            
             bool searching = true;
             while (searching == true)
             {
@@ -53,7 +66,20 @@ namespace Farkle
                 searching = check1Or5();
             }
 
-            return false;
+            foreach (int i in occurenceList)
+                if (i != 0)
+                    return false;
+            Console.WriteLine("3 TRUE");
+            return true;
+        }
+
+        private void changeList(List<Dice> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                EndList.Add(list[i]);
+                BoardList.Remove(list[i]);
+            }
         }
 
         private bool check123456()
@@ -61,7 +87,7 @@ namespace Farkle
             foreach (int diceNb in occurenceList)
                 if (diceNb != 1)
                     return false;
-            playerList[playerNb].Score += 3000;
+            PlayerList[playerNb].Score += 3000;
 
             return true;
         }
@@ -69,9 +95,9 @@ namespace Farkle
         private bool checkThreePairs()
         {
             foreach (int diceNb in occurenceList)
-                if (occurenceList.Count != 6 || diceNb % 2 != 0)
+                if (BoardList.Count != 6 || diceNb % 2 != 0)
                     return false;
-            playerList[playerNb].Score += 1500;
+            PlayerList[playerNb].Score += 1500;
             return true;
         }
 
@@ -81,7 +107,7 @@ namespace Farkle
                 if (occurenceList[i] == 3)
                 {
                     occurenceList[i] -= 3;
-                    playerList[playerNb].Score += (i + 1) * 100;
+                    PlayerList[playerNb].Score += (i + 1) * 100;
                     return true;
                 }
             return false;
@@ -92,13 +118,13 @@ namespace Farkle
             if (occurenceList[0] > 0)
             {
                 occurenceList[0]--;
-                playerList[playerNb].Score += 100;
+                PlayerList[playerNb].Score += 100;
                 return true;
             }
             else if (occurenceList[4] > 0)
             {
                 occurenceList[4]--;
-                playerList[playerNb].Score += 50;
+                PlayerList[playerNb].Score += 50;
                 return true;
             }
             return false;

@@ -12,6 +12,7 @@ namespace Farkle
         List<Dice> StartingList { get; set; }
         List<Dice> BoardList { get; set; }
         List<Dice> EndList { get; set; }
+        List<Player> PlayerList { get; set; }
         List<Dice> ThrowDices();
         bool Verification(List<Dice> list);
     }

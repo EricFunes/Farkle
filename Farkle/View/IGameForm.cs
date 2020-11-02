@@ -7,11 +7,13 @@ using System.Windows.Forms;
 
 namespace Farkle.View
 {
-    interface IGameForm
+    public interface IGameForm
     {
-        event EventHandler BtnRollDice, BtnSelectDice, Load;
+        List<int> List { get; set; }
+        event EventHandler BtnRollDice, BtnSelectDice, Load, ImgDice1;
         event FormClosingEventHandler FormClosing;
-        void ShowName();
-        void ShowScore();
+        void ShowDice(List<int> intStartingList, List<int> intBoardList, List<int> intEndList);
+        void ShowName(string name);
+        void ShowScore(int score);
     }
 }

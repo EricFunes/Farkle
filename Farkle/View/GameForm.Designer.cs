@@ -28,15 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-
             this.btnRoll = new System.Windows.Forms.Button();
             this.btnSelection = new System.Windows.Forms.Button();
             this.lblNom = new System.Windows.Forms.Label();
             this.lblScore = new System.Windows.Forms.Label();
             this.lblRegles = new System.Windows.Forms.Label();
-
             this.SuspendLayout();
-
             // 
             // btnRoll
             // 
@@ -46,6 +43,7 @@
             this.btnRoll.TabIndex = 12;
             this.btnRoll.Text = "Lancer";
             this.btnRoll.UseVisualStyleBackColor = true;
+            this.btnRoll.Click += new System.EventHandler(this.btnRoll_Click);
             // 
             // btnSelection
             // 
@@ -55,6 +53,7 @@
             this.btnSelection.TabIndex = 19;
             this.btnSelection.Text = "Selectionner";
             this.btnSelection.UseVisualStyleBackColor = true;
+            this.btnSelection.Click += new System.EventHandler(this.btnSelection_Click);
             // 
             // lblNom
             // 
@@ -95,7 +94,6 @@
             this.Controls.Add(this.btnRoll);
             this.Name = "GameForm";
             this.Text = "GameForm";
-
             this.ResumeLayout(false);
             this.PerformLayout();
 

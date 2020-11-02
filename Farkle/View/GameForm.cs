@@ -12,37 +12,96 @@ using System.Windows.Forms;
 
 namespace Farkle.View
 {
-    public partial class GameForm : Form, IGameForm
+    public partial class GameForm : Form//, IGameForm
     {
+        public List<Dice> diceList;
         private List<System.Windows.Forms.PictureBox> startingList, boardList, endList;
         private Game game;
-
-        public event EventHandler ButonClickRoll;
 
         public GameForm()
         {
             InitializeComponent();
             loadPictureBox();
-
-            game = new Game();
+            
+            List<Player> playerList = new List<Player>();
+            playerList.Add(new Player("John"));
+            game = new Game(playerList);
             for (int i = 0; i < 6; i++)
                 endList[i].Image = Properties.Resources.dice0;
+
+            diceList = new List<Dice>();
+
+            //this.ImgDice1 += ImgDice1_Click;
         }
 
-        public void Play()
+        private void btnRoll_Click(object sender, EventArgs e)
         {
             List<Dice> list = game.ThrowDices();
-            for (int i = 0; i < 6; i++)
-            {
+            for(int i = 0; i < list.Count; i++)
                 boardList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{list[i]}");
-                //Console.WriteLine(list[i]);
-            }
-
-            //object obj = ResourceManager.GetObject($"dice{list[0]}");
-
         }
 
-        public event EventHandler BtnRollDice
+        private void btnSelection_Click(object sender, EventArgs e)
+        {
+            foreach(Dice d in diceList)
+            Console.WriteLine(d.ToString());
+            //Console.WriteLine(game.Verification(diceList));
+            if(game.Verification(diceList))
+                for (int i = 0; i < game.EndList.Count; i++)
+                    endList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{game.EndList[i]}");
+        }
+
+        /*event EventHandler ImgDice1
+        {
+            add { boardList[0].Click += value; }
+            remove { boardList[0].Click -= value; }
+        }*/
+
+        public void ImgDice1_Click(object sender, EventArgs e)
+        {
+            if(!diceList.Contains(game.BoardList[0]))
+                diceList.Add(game.BoardList[0]);
+            else
+                diceList.Remove(game.BoardList[0]);
+        }
+        public void ImgDice2_Click(object sender, EventArgs e)
+        {
+            if (!diceList.Contains(game.BoardList[1]))
+                diceList.Add(game.BoardList[1]);
+            else
+                diceList.Remove(game.BoardList[1]);
+        }
+        public void ImgDice3_Click(object sender, EventArgs e)
+        {
+            if (!diceList.Contains(game.BoardList[2]))
+                diceList.Add(game.BoardList[2]);
+            else
+                diceList.Remove(game.BoardList[2]);
+        }
+        public void ImgDice4_Click(object sender, EventArgs e)
+        {
+            if (!diceList.Contains(game.BoardList[3]))
+                diceList.Add(game.BoardList[3]);
+            else
+                diceList.Remove(game.BoardList[3]);
+        }
+        public void ImgDice5_Click(object sender, EventArgs e)
+        {
+            if (!diceList.Contains(game.BoardList[4]))
+                diceList.Add(game.BoardList[4]);
+            else
+                diceList.Remove(game.BoardList[4]);
+        }
+
+        public void ImgDice6_Click(object sender, EventArgs e)
+        {
+            if (!diceList.Contains(game.BoardList[5]))
+                diceList.Add(game.BoardList[5]);
+            else
+                diceList.Remove(game.BoardList[5]);
+        }
+
+        /*public event EventHandler BtnRollDice
         {
             add { btnRoll.Click += value; }
             remove { btnRoll.Click -= value; }
@@ -54,28 +113,47 @@ namespace Farkle.View
             remove { btnSelection.Click -= value; }
         }
 
-        public void Bind(List<Binding> bindStartingList, List<Binding> bindBoardList, List<Binding> bindEndList)
+        public event EventHandler ImgDice1
         {
-            //bindList = new BindingList<Dice>();
-            //bindList.Add(starting);
-            //startingList[0].DataBindings.Add(new Binding("Text", Game, "startingList[0]"));
-            for(int i = 0; i < 6; i++)
+            add {
+                List.Add(Int32.Parse($"{boardList[0].Tag.ToString().Last()}"));
+                boardList[0].Click += value; }
+            remove {
+                List.Remove(boardList[0].Tag.ToString().Last());
+                boardList[0].Click -= value; }
+        }
+
+        public void ShowDice(List<int> intStartingList, List<int> intBoardList, List<int> intEndList)
+        {
+            for(int i = 0; i < intStartingList.Count; i++)
             {
-                startingList[i].DataBindings.Add(bindStartingList[i]);
-                boardList[i].DataBindings.Add(bindBoardList[i]);
-                endList[i].DataBindings.Add(bindEndList[i]);
+                startingList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{intStartingList[i]}");
+                startingList[i].Tag = $"dice{intStartingList[i]}";
             }
+                
+            for (int i = 0; i < intBoardList.Count; i++)
+            {
+                boardList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{intBoardList[i]}");
+                boardList[i].Tag = $"dice{intBoardList[i]}";
+            }
+            
+            for (int i = 0; i < intEndList.Count; i++)
+            {
+                endList[i].Image = (Image)Properties.Resources.ResourceManager.GetObject($"dice{intEndList[i]}");
+                endList[i].Tag = $"dice{intEndList[i]}";
+            }
+            
         }
 
-        public void ShowName()
+        public void ShowName(string name)
         {
-
+            lblNom.Text = name;
         }
 
-        public void ShowScore()
+        public void ShowScore(int score)
         {
-
-        }
+            lblScore.Text = $"{score}";
+        }*/
 
         private void loadPictureBox()
         {
@@ -128,6 +206,12 @@ namespace Farkle.View
                 this.endList[i].TabIndex = i + 13;
                 this.endList[i].TabStop = false;
             }
+            this.boardList[0].Click += new System.EventHandler(this.ImgDice1_Click);
+            this.boardList[1].Click += new System.EventHandler(this.ImgDice2_Click);
+            this.boardList[2].Click += new System.EventHandler(this.ImgDice3_Click);
+            this.boardList[3].Click += new System.EventHandler(this.ImgDice4_Click);
+            this.boardList[4].Click += new System.EventHandler(this.ImgDice5_Click);
+            this.boardList[5].Click += new System.EventHandler(this.ImgDice6_Click);
             for (int i = 0; i < 6; i++)
             {
                 this.Controls.Add(this.startingList[i]);

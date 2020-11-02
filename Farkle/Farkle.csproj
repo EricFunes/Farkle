@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presenter\PlayerPresenter.cs" />
+    <Compile Include="View\IPlayerForm.cs" />
     <Compile Include="View\PlayerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,9 +81,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Presenter\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FarkleLib\FarkleLib.csproj">
       <Project>{5d0aef3a-0406-440f-abdc-a45f54219df0}</Project>

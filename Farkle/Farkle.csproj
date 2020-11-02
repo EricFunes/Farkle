@@ -54,6 +54,8 @@
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\IGameForm.cs" />
+    <Compile Include="Presenter\PlayerPresenter.cs" />
+    <Compile Include="View\IPlayerForm.cs" />
     <Compile Include="View\PlayerForm.cs">
       <SubType>Form</SubType>
     </Compile>

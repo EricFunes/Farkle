@@ -1,42 +1,71 @@
 ﻿using Farkle.View;
 using FarkleLib;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Farkle.Presenter
 {
     public class PlayerPresenter
     {
-        private readonly IPlayer myPlayer;
+        private IPlayer player1;
+        private IPlayer player2;
+        private List<IPlayer> playerList;
         private readonly IPlayerForm myPlayerForm;
 
         /// <summary>
-        /// Creates a player and the player form;
+        /// Creates a player and the player form.
         /// </summary>
-        /// <param name="player"></param>
+        /// <param name="players"></param>
         /// <param name="form"></param>
-        public PlayerPresenter(IPlayer player, IPlayerForm form)
+        public PlayerPresenter(List<IPlayer> players, IPlayerForm form)
         {
-            myPlayer = player;
+            player1 = new Player();
+            player2 = new Player();
             myPlayerForm = form;
+            playerList = players;
 
             myPlayerForm.BtnPlay += MyPlayerForm_BtnPlay;
-            myPlayerForm.BtnSave += MyPlayerForm_BtnSave;
+            myPlayerForm.BtnAddPlayer += MyPlayerForm_BtnAddPlayer;
+            
             myPlayerForm.Load += MyPlayerForm_Load;
             myPlayerForm.FormClosing += MyPlayerForm_FormClosing;
-            myPlayerForm.NameValidating += MyPlayerForm_NameValidating;
-            myPlayerForm.NameValidated += ClearMessage;
+            
+            myPlayerForm.NameValidatingPlayer1 += ValidateNamePlayer1;
+            myPlayerForm.NameValidatingPlayer2 += ValidateNamePlayer2;
+
+            myPlayerForm.NameValidatedPlayer1 += ClearMessage;
+            myPlayerForm.NameValidatedPlayer2 += ClearMessage;
+
+            myPlayerForm.SetP1NameDataBinding(new Binding("Text", player1, "Name"));
+            myPlayerForm.SetP2NameDataBinding(new Binding("Text", player2, "Name"));
         }
 
+        /// <summary>
+        /// Clears ErrorProvider.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClearMessage(object sender, EventArgs e)
         {
             myPlayerForm.ClearErrorMessage();
         }
 
-        private void MyPlayerForm_NameValidating(object sender, CancelEventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ValidateNamePlayer1(object sender, CancelEventArgs e)
         {
-            myPlayerForm.ValidateName(sender, e);
+            myPlayerForm.ValidateNamePlayer1(sender, e);
+        }
+
+        private void ValidateNamePlayer2(object sender, CancelEventArgs e)
+        {
+            myPlayerForm.ValidateNamePlayer2(sender, e);
         }
 
         /// <summary>
@@ -64,9 +93,11 @@ namespace Farkle.Presenter
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MyPlayerForm_BtnSave(object sender, EventArgs e)
+        private void MyPlayerForm_BtnAddPlayer(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            myPlayerForm.AddPlayer(playerList, player1);
+            myPlayerForm.AddPlayer(playerList, player2);
+            myPlayerForm.ShowPlayButton();
         }
 
         /// <summary>
@@ -76,7 +107,14 @@ namespace Farkle.Presenter
         /// <param name="e"></param>
         private void MyPlayerForm_BtnPlay(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            string msg = "";
+
+            foreach (IPlayer player in playerList)
+            {
+                msg += player.ToString() + ", ";
+            }
+            MessageBox.Show(msg);
+
         }
     }
 }

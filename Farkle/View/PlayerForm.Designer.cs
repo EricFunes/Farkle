@@ -29,32 +29,34 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textName = new System.Windows.Forms.TextBox();
+            this.lblPlayerName1 = new System.Windows.Forms.Label();
+            this.textNameP1 = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
             this.radioFrench = new System.Windows.Forms.RadioButton();
             this.radioEnglish = new System.Windows.Forms.RadioButton();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.textNameP2 = new System.Windows.Forms.TextBox();
+            this.lblPlayerName2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // lblPlayerName1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 156);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Nom";
+            this.lblPlayerName1.AutoSize = true;
+            this.lblPlayerName1.Location = new System.Drawing.Point(21, 156);
+            this.lblPlayerName1.Name = "lblPlayerName1";
+            this.lblPlayerName1.Size = new System.Drawing.Size(56, 25);
+            this.lblPlayerName1.TabIndex = 0;
+            this.lblPlayerName1.Text = "Nom";
             // 
-            // textName
+            // textNameP1
             // 
-            this.textName.Location = new System.Drawing.Point(94, 153);
-            this.textName.Name = "textName";
-            this.textName.Size = new System.Drawing.Size(196, 31);
-            this.textName.TabIndex = 1;
+            this.textNameP1.Location = new System.Drawing.Point(94, 153);
+            this.textNameP1.Name = "textNameP1";
+            this.textNameP1.Size = new System.Drawing.Size(196, 31);
+            this.textNameP1.TabIndex = 1;
             // 
             // btnStart
             // 
@@ -113,18 +115,36 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // textNameP2
+            // 
+            this.textNameP2.Location = new System.Drawing.Point(94, 214);
+            this.textNameP2.Name = "textNameP2";
+            this.textNameP2.Size = new System.Drawing.Size(196, 31);
+            this.textNameP2.TabIndex = 9;
+            // 
+            // lblPlayerName2
+            // 
+            this.lblPlayerName2.AutoSize = true;
+            this.lblPlayerName2.Location = new System.Drawing.Point(21, 220);
+            this.lblPlayerName2.Name = "lblPlayerName2";
+            this.lblPlayerName2.Size = new System.Drawing.Size(56, 25);
+            this.lblPlayerName2.TabIndex = 10;
+            this.lblPlayerName2.Text = "Nom";
+            // 
             // PlayerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(636, 290);
+            this.Controls.Add(this.lblPlayerName2);
+            this.Controls.Add(this.textNameP2);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.radioEnglish);
             this.Controls.Add(this.radioFrench);
             this.Controls.Add(this.btnStart);
-            this.Controls.Add(this.textName);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textNameP1);
+            this.Controls.Add(this.lblPlayerName1);
             this.Name = "PlayerForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
@@ -135,14 +155,16 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textName;
+        private System.Windows.Forms.Label lblPlayerName1;
+        private System.Windows.Forms.TextBox textNameP1;
         private System.Windows.Forms.Button btnStart;
         protected System.Windows.Forms.RadioButton radioFrench;
         private System.Windows.Forms.RadioButton radioEnglish;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Label lblPlayerName2;
+        private System.Windows.Forms.TextBox textNameP2;
     }
 }
 

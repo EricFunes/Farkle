@@ -1,23 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace FarkleLib
 {
-    public class Player: IPlayer
+    public class Player: IPlayer, INotifyPropertyChanged
     {
         // Properties
-        public string Name { get; set; }
+        private string name;
+        public string Name { 
+            get 
+            {
+                return name;
+            }
+
+            set
+            {
+                name = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(""));
+
+            }
+        }
         public int Score { get; set; }
 
-        /// <summary>
-        /// Player has a name and his score is set to 0.
-        /// </summary>
-        /// <param name="name"></param>
-        public Player(string name)
-        {
-            Name = name;
-            Score = 0;
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// The player throws the remaining dices with to the dice track.
